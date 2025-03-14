@@ -1,0 +1,21 @@
+<h1>Список сотрудников</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>ФИО</th>
+                <th>Дата рождения</th>
+                <th>Паспорт</th>
+                <th>Контакт</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each users}}
+                <tr>
+                    <td>{{this.fullName}}</td>
+                    <td>{{this.birthDate}}</td>
+                    <td>{{this.passportNumber}}</td>
+                    <td>{{this.contactInfo}}</td>
+                </tr>
+            {{/each}}
+        </tbody>
+    </table>
