@@ -1,5 +1,7 @@
 const { DataTypes } = require('sequelize');
-const sequelize = require('../db'); 
+const sequelize = require('../db');
+const Department = require('./departament.model');
+const Position = require('./position.model');
 
 const User = sequelize.define('User', {
     id: {
@@ -7,45 +9,45 @@ const User = sequelize.define('User', {
         defaultValue: DataTypes.UUIDV4,
         primaryKey: true
     },
-    fullName: {
+    lastName: {
         type: DataTypes.STRING,
         allowNull: false,
-        validate: { len: [5, 100] }
+        validate: { len: [2, 50] }
+    },
+    firstName: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: { len: [2, 50] }
+    },
+    middleName: {
+        type: DataTypes.STRING,
+        allowNull: true,
+        validate: { len: [2, 50] }
     },
     birthDate: {
         type: DataTypes.DATEONLY,
         allowNull: false,
         validate: { isDate: true }
     },
+    passportSeries: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: { len: [4] }
+    },
     passportNumber: {
         type: DataTypes.STRING,
         allowNull: false,
-        validate: { is: /^\d{4}-\d{6}$/ } // Формат 4 цифры - 6 цифр
+        validate: { len: [6] }
     },
     contactInfo: {
         type: DataTypes.STRING,
         allowNull: false,
-        validate: { is: /^\+?\d{1,3}[-.\s]?\(?\d{2,3}\)?[-.\s]?\d{3}[-.\s]?\d{2}[-.\s]?\d{2}$/ }
+        validate: { len: [11] }
     },
     address: {
         type: DataTypes.STRING,
         allowNull: false,
-        validate: { len: [10, 200] } // Ограничение по длине адреса
-    },
-    department: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        validate: { len: [2, 100] }
-    },
-    position: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        validate: { len: [2, 100] }
-    },
-    salary: {
-        type: DataTypes.DECIMAL(10, 2), // Денежный формат, 10 знаков всего, 2 после запятой
-        allowNull: false,
-        validate: { min: 0 }
+        validate: { len: [10, 200] }
     },
     hireDate: {
         type: DataTypes.DATEONLY,
@@ -57,10 +59,16 @@ const User = sequelize.define('User', {
         allowNull: true,
         defaultValue: true
     }
-
 }, {
     tableName: 'users',
     timestamps: false
 });
+
+
+User.belongsTo(Department, { foreignKey: 'departmentId', as: 'department' });
+Department.hasMany(User, { foreignKey: 'departmentId', as: 'users' });
+
+User.belongsTo(Position, { foreignKey: 'positionId', as: 'position' });
+Position.hasMany(User, { foreignKey: 'positionId', as: 'users' });
 
 module.exports = User;

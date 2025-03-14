@@ -4,16 +4,25 @@ const { router } = require('./routes/routes');
 const { engine } = require('express-handlebars');
 const path = require('path');
 const sequelize = require('./db'); // Импортируем подключение к БД
+const helper = require('./helpers/helper');
 
 const app = express(); // Создаём веб-приложение
+
+//json  
+app.use(express.json()); // Позволяет Express разбирать JSON-запросы
+app.use(express.urlencoded({ extended: true })); // Позволяет работать с form-urlencoded
+
 
 // Настройка Handlebars
 app.engine('hbs', engine({
     defaultLayout: 'main',
-    extname: 'hbs'
+    extname: 'hbs',
+    helpers: helper
 }));
+
 app.set('view engine', 'hbs');
 app.set('views', './views');
+
 
 // Подключаем статику
 app.use(express.static(path.join(__dirname, 'public')));

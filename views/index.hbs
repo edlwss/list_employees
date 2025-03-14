@@ -1,21 +1,85 @@
 <h1>Список сотрудников</h1>
-    <table>
+
+<div class="filters">
+    <input type="text" id="searchInput" placeholder="Поиск по имени..." oninput="filterTable()">
+    <select id="departmentFilter" onchange="filterTable()">
+        <option value="">Все отделы</option>
+        {{#each departments}}
+            <option value="{{this.name}}">{{this.name}}</option>
+        {{/each}}
+    </select>
+    <select id="positionFilter" onchange="filterTable()">
+        <option value="">Все должности</option>
+        {{#each positions}}
+            <option value="{{this.name}}">{{this.name}}</option>
+        {{/each}}
+    </select>
+</div>
+
+<div class="table-container">
+    <table id="employeesTable">
         <thead>
             <tr>
                 <th>ФИО</th>
                 <th>Дата рождения</th>
                 <th>Паспорт</th>
                 <th>Контакт</th>
+                <th>Адрес</th>
+                <th>Отдел</th>
+                <th>Должность</th>
+                <th>Зарплата</th>
+                <th>Дата найма</th>
+                <th>Статус</th>
             </tr>
         </thead>
         <tbody>
             {{#each users}}
-                <tr>
-                    <td>{{this.fullName}}</td>
+                <tr class="{{#unless this.status}}inactive{{/unless}}">
+                    <td><a href="/user/{{this.id}}">{{this.lastName}} {{this.firstName}} {{this.middleName}}</a></td>
                     <td>{{this.birthDate}}</td>
-                    <td>{{this.passportNumber}}</td>
-                    <td>{{this.contactInfo}}</td>
+                    <td>{{formatPassport this.passportSeries this.passportNumber}}</td>
+                    <td>{{formatPhone this.contactInfo}}</td>
+                    <td>{{this.address}}</td>
+                    <td class="department">{{this.department.name}}</td> 
+                    <td class="position">{{this.position.name}}</td> 
+                    <td>{{this.position.salary}}</td>
+                    <td>{{this.hireDate}}</td>
+                    <td>{{#if this.status}}Работает{{else}}Уволен{{/if}}</td>
                 </tr>
             {{/each}}
         </tbody>
     </table>
+</div>
+<script>
+function filterTable() {
+    let input = document.getElementById("searchInput").value.toLowerCase();
+    let rows = document.querySelectorAll("#employeesTable tbody tr");
+
+    rows.forEach(row => {
+        let name = row.querySelector("td a").textContent.toLowerCase();
+        row.style.display = name.includes(input) ? "" : "none";
+    });
+}
+function filterTable() {
+    let searchInput = document.getElementById("searchInput").value.toLowerCase();
+    let departmentFilter = document.getElementById("departmentFilter").value;
+    let positionFilter = document.getElementById("positionFilter").value;
+    let rows = document.querySelectorAll("#employeesTable tbody tr");
+
+    rows.forEach(row => {
+        let name = row.querySelector("td a").textContent.toLowerCase();
+        let department = row.querySelector(".department").textContent.toLowerCase();
+        let position = row.querySelector(".position").textContent.toLowerCase();
+
+        let matchesName = name.includes(searchInput);
+        let matchesDepartment = departmentFilter === "" || department.includes(departmentFilter.toLowerCase());
+        let matchesPosition = positionFilter === "" || position.includes(positionFilter.toLowerCase());
+
+        if (matchesName && matchesDepartment && matchesPosition) {
+            row.style.display = "";
+        } else {
+            row.style.display = "none";
+        }
+    });
+}
+</script>

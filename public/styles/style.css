@@ -1,0 +1,175 @@
+
+/* Общие стили */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #e0e7ef;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    align-items: center;
+    padding-top: 80px;  /* Отступ сверху, чтобы шапка не перекрывала контент */
+    padding-bottom: 50px; /* Чтобы подвал не перекрывал контент */
+}
+
+/* Шапка */
+.header {
+    background: #5c7080;
+    color: white;
+    padding: 15px 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;  /* Шапка фиксирована относительно страницы */
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    box-sizing: border-box;
+}
+
+/* Контейнеры */
+.container {
+    width: 66%;
+    margin: 20px auto;
+    background: #f0f4f8;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    padding-top: 80px;  /* Отступ сверху, чтобы не перекрывалась шапкой */
+    padding-bottom: 50px;  /* Отступ снизу, чтобы не перекрывалась подвалом */
+}
+
+/* Контент */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #e0e7ef;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    align-items: center;
+    overflow-y: auto; /* Позволяет прокручивать страницу */
+    padding-top: 80px; /* Чтобы шапка не перекрывала контент */
+    padding-bottom: 50px; /* Чтобы подвал не перекрывал контент */
+}
+
+.header .logo {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    flex-grow: 1;
+}
+
+.header nav {
+    display: flex;
+    gap: 20px;
+    justify-content: flex-start;
+}
+
+.header a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+.header a:hover {
+    color: #b0c4de;
+}
+
+/* Фильтры */
+.filters {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 66%;
+    margin: 20px auto;
+    gap: 10px;
+}
+
+.filters input, .filters select {
+    flex: 1;
+    padding: 10px;
+    background: #eef2f6;
+    border: 1px solid #a0b4c4;
+    border-radius: 4px;
+}
+
+/* Таблица */
+.table-container {
+    width: 66%;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #f0f4f8;
+}
+
+table th, table td {
+    border: 1px solid #a0b4c4;
+    padding: 10px;
+    text-align: left;
+}
+
+table th {
+    background: #5c7080;
+    color: white;
+}
+
+table tr:nth-child(even) {
+    background: #dde7ef;
+}
+
+table tr:hover {
+    background: #cfd8e3;
+}
+
+/* Формы */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    width: 66%;
+    margin: auto;
+}
+
+label {
+    font-weight: bold;
+    width: 100%;
+    display: block;
+    text-align: left;
+}
+
+input, select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #a0b4c4;
+    border-radius: 4px;
+    background: #eef2f6;
+}
+
+button {
+    background: #5c7080;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 4px;
+    margin-top: 10px;
+}
+
+button:hover {
+    background: #475866;
+}
+
+

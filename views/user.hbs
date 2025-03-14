@@ -1,0 +1,96 @@
+<h1>Данные сотрудника</h1>
+<div class="container">
+<form id="userForm" action="/user/{{user.id}}" method="POST">
+    <label>Фамилия: <input type="text" name="lastName" value="{{user.lastName}}" {{#unless user.status}}disabled{{/unless}}></label><br>
+    <label>Имя: <input type="text" name="firstName" value="{{user.firstName}}" {{#unless user.status}}disabled{{/unless}}></label><br>
+    <label>Отчество: <input type="text" name="middleName" value="{{user.middleName}}" {{#unless user.status}}disabled{{/unless}}></label><br>
+    <label>Дата рождения: <input type="date" name="birthDate" value="{{user.birthDate}}" {{#unless user.status}}disabled{{/unless}}></label><br>
+    <label>Паспорт: <input type="text" name="passport" value="{{user.passportSeries}}-{{user.passportNumber}}" {{#unless user.status}}disabled{{/unless}}></label><br>
+    <label>Контакт: <input type="text" name="contactInfo" value="{{user.contactInfo}}" {{#unless user.status}}disabled{{/unless}}></label><br>
+    <label>Адрес: <input type="text" name="address" value="{{user.address}}" {{#unless user.status}}disabled{{/unless}}></label><br>
+    
+    <label>Отдел:
+        <select name="departmentId" id="departmentSelect" required>
+            <option value="{{user.department.id}}">{{user.department.name}}</option>
+            {{#each departments}}
+                <option value="{{this.id}}">{{this.name}}</option>
+            {{/each}}
+        </select>
+    </label><br>
+
+    <label>Должность:
+        <select name="positionId" id="positionSelect" required>
+            <option value="{{user.position.id}}">{{user.position.name}}</option>
+            {{#each positions}}
+                <option value="{{this.id}}" data-salary="{{this.salary}}">{{this.name}}</option>
+            {{/each}}
+        </select>
+    </label><br>
+
+
+
+    <label>Дата найма: <input type="date" name="hireDate" value="{{user.hireDate}}" {{#unless user.status}}disabled{{/unless}}></label><br>
+
+    {{#if user.status}}
+        <button type="submit">Обновить данные</button>
+        <button type="button" id="fireBtn">Уволить</button>
+    {{else}}
+        <button type="button" id="restoreBtn">Восстановить</button>
+    {{/if}}
+</form>
+</div>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    const fireBtn = document.getElementById("fireBtn");
+    const restoreBtn = document.getElementById("restoreBtn");
+    const passportInput = document.querySelector('input[name="passport"]');
+    const phoneInput = document.querySelector('input[name="contactInfo"]');
+
+    if (fireBtn) {
+        fireBtn.addEventListener("click", () => {
+            fetch("/user/{{user.id}}/status", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ status: false })
+            }).then(() => location.reload());
+        });
+    }
+
+    if (restoreBtn) {
+        restoreBtn.addEventListener("click", () => {
+            fetch("/user/{{user.id}}/status", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ status: true })
+            }).then(() => location.reload());
+        });
+    }
+
+    if (passportInput) {
+        passportInput.addEventListener('input', function (e) {
+            let value = e.target.value.replace(/\D/g, ''); 
+            if (value.length > 10) value = value.slice(0, 10);
+            
+            let formatted = value;
+            if (value.length >= 4) formatted = value.slice(0, 4) + '-' + value.slice(4);
+            
+            e.target.value = formatted;
+        });
+    }
+
+    if (phoneInput) {
+        phoneInput.addEventListener('input', function (e) {
+            let value = e.target.value.replace(/\D/g, ''); 
+            if (value.length > 11) value = value.slice(0, 11);
+            
+            let formatted = '+7';
+            if (value.length > 1) formatted += '(' + value.slice(1, 4);
+            if (value.length > 4) formatted += ')-' + value.slice(4, 7);
+            if (value.length > 7) formatted += '-' + value.slice(7, 9);
+            if (value.length > 9) formatted += '-' + value.slice(9, 11);
+            
+            e.target.value = formatted;
+        });
+    }
+});
+</script>
