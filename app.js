@@ -3,17 +3,17 @@ const { PORT } = require('./constants/constants');
 const { router } = require('./routes/routes');
 const { engine } = require('express-handlebars');
 const path = require('path');
-const sequelize = require('./db'); // Импортируем подключение к БД
+const sequelize = require('./db'); 
 const helper = require('./helpers/helper');
 
-const app = express(); // Создаём веб-приложение
+const app = express(); 
 
 //json  
-app.use(express.json()); // Позволяет Express разбирать JSON-запросы
-app.use(express.urlencoded({ extended: true })); // Позволяет работать с form-urlencoded
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 
-// Настройка Handlebars
+// Handlebars
 app.engine('hbs', engine({
     defaultLayout: 'main',
     extname: 'hbs',
@@ -23,20 +23,15 @@ app.engine('hbs', engine({
 app.set('view engine', 'hbs');
 app.set('views', './views');
 
-
-// Подключаем статику
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Подключаем маршруты
 app.use(router);
 
-// Функция инициализации приложения
 async function init() {
     try {
-        await sequelize.authenticate(); // Проверяем подключение к БД
+        await sequelize.authenticate(); 
         console.log('Connected to PostgreSQL');
-
-        await sequelize.sync(); // Опционально: синхронизируем модели с БД
+        await sequelize.sync(); 
 
         app.listen(PORT, () => {
             console.log(`Server started at http://localhost:${PORT}`);

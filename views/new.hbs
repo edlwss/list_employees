@@ -32,7 +32,7 @@
 </div>
 <script>
 document.getElementById('passportInput').addEventListener('input', function (e) {
-    let value = e.target.value.replace(/\D/g, ''); // Убираем все, кроме цифр
+    let value = e.target.value.replace(/\D/g, ''); 
     if (value.length > 10) value = value.slice(0, 10);
 
     let formatted = value;
@@ -42,7 +42,7 @@ document.getElementById('passportInput').addEventListener('input', function (e) 
 });
 
 document.getElementById('phoneInput').addEventListener('input', function (e) {
-    let value = e.target.value.replace(/\D/g, ''); // Убираем все, кроме цифр
+    let value = e.target.value.replace(/\D/g, '');
     if (value.length > 11) value = value.slice(0, 11);
 
     let formatted = '+7';

@@ -1,5 +1,4 @@
 
-/* Общие стили */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -10,11 +9,10 @@ body {
     flex-direction: column;
     min-height: 100vh;
     align-items: center;
-    padding-top: 80px;  /* Отступ сверху, чтобы шапка не перекрывала контент */
-    padding-bottom: 50px; /* Чтобы подвал не перекрывал контент */
+    padding-top: 80px; 
+    padding-bottom: 50px; 
 }
 
-/* Шапка */
 .header {
     background: #5c7080;
     color: white;
@@ -22,7 +20,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    position: fixed;  /* Шапка фиксирована относительно страницы */
+    position: fixed;  
     top: 0;
     left: 0;
     width: 100%;
@@ -30,7 +28,6 @@ body {
     box-sizing: border-box;
 }
 
-/* Контейнеры */
 .container {
     width: 66%;
     margin: 20px auto;
@@ -38,11 +35,10 @@ body {
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    padding-top: 80px;  /* Отступ сверху, чтобы не перекрывалась шапкой */
-    padding-bottom: 50px;  /* Отступ снизу, чтобы не перекрывалась подвалом */
+    padding-top: 80px;
+    padding-bottom: 50px; 
 }
 
-/* Контент */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -53,9 +49,9 @@ body {
     flex-direction: column;
     min-height: 100vh;
     align-items: center;
-    overflow-y: auto; /* Позволяет прокручивать страницу */
-    padding-top: 80px; /* Чтобы шапка не перекрывала контент */
-    padding-bottom: 50px; /* Чтобы подвал не перекрывал контент */
+    overflow-y: auto; 
+    padding-top: 80px; 
+    padding-bottom: 50px; 
 }
 
 .header .logo {
@@ -82,7 +78,6 @@ body {
     color: #b0c4de;
 }
 
-/* Фильтры */
 .filters {
     display: flex;
     justify-content: space-between;
@@ -100,7 +95,6 @@ body {
     border-radius: 4px;
 }
 
-/* Таблица */
 .table-container {
     width: 66%;
     margin: auto;
@@ -133,7 +127,6 @@ table tr:hover {
     background: #cfd8e3;
 }
 
-/* Формы */
 form {
     display: flex;
     flex-direction: column;
